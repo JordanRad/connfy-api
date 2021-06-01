@@ -1,3 +1,3 @@
-# connfy-api
+# Conffy API
 
-RESTfull API to our Connfy 
+RESTfull API for our Group Project, Semester 4 - Connfy 
