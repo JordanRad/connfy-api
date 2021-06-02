@@ -1,6 +1,7 @@
 # Connfy API
 
 RESTfull API for our Group Project, Semester 4 - Connfy 
+
 ## Development
 With the pre-defined project strucutre, you can extend the application. Please confine to the follwing structure:
 
