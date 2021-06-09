@@ -29,6 +29,16 @@ To make a migration to the SQLite Database run the following command:
 ```
 npx prisma migrate dev --name init
 ```
+
+### Development
+
+To start a prisma database GUI run the following command:
+```
+npx prisma studio
+```
+
+**IMPORTANT**: Do not delete the any of the migration folders, they hold the migration history and are needed for future migrations!
+
 SQLite File location:
 *connfy-api/src/prisma/connfy.db*
 
