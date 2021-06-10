@@ -10,6 +10,14 @@ model User {
   email   String   @unique
   name    String 
 }
+model Meeting {
+  id Int @default(autoincrement()) @id
+  title String @unique
+  noteId Int
+  userId Int
+  publicNote Boolean @default(true)
+  date DateTime
+}
 generator client {
   provider = "prisma-client-js"
 }
