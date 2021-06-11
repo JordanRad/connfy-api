@@ -8,34 +8,31 @@ const prisma = new PrismaClient();
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    let users: User[] = [];
-    try {
-        users = await prisma.user.findMany();
+
+    let users: User[] | undefined = await UserService.getAllUsers();
+
+    if (users == undefined) {
+        return res.sendStatus(404)
     }
-    catch (err) {
-        res.json(err)
-    }
-    res.json(users)
+
+    return res.json(users)
 })
 router.get('/:id', async (req, res) => {
 
-    let user = await UserService.getUserById(parseInt(req.params.id));
+    let user: User | null = await UserService.getUserById(parseInt(req.params.id));
 
     user != null ? res.json(user) : res.sendStatus(404)
-    
-
 
 })
 router.post("/", async (req, res) => {
-    let user: User | null = null;
-    try {
-        user = await prisma.user.create({
-            data: req.body
-        })
-    } catch (err) {
-        errorLog(err)
-        res.sendStatus(409).json({ message: "Email constraint violation. Such user already exists." })
+    let user: User = req.body
+
+    let createdUser: User | undefined = await UserService.createUser(user);
+
+    if (createdUser == undefined) {
+        return res.sendStatus(409)
     }
-    res.send(user)
+
+    return res.json(createdUser)
 })
 export default router;

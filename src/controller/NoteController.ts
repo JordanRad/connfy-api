@@ -1,11 +1,9 @@
 import express from 'express';
 import { Note } from '../model/Note';
-import { PrismaClient } from '@prisma/client';
 import { NoteService } from '../service/NoteService';
-import { errorLog } from '../logging';
 const router = express.Router();
 
-router.get("/shared/:meetingId", async (req, res) => {
+router.get("/shared/meetings/:meetingId", async (req, res) => {
 
     let meetingId: number = parseInt(req.params.meetingId)
 
@@ -19,7 +17,7 @@ router.get("/shared/:meetingId", async (req, res) => {
     return res.json(notes)
 
 })
-router.get("/shared/:meetingId/topic/:topic", async (req, res) => {
+router.get("/shared/meetings/:meetingId/topic/:topic", async (req, res) => {
     let meetingId: number = parseInt(req.params.meetingId)
 
     let topic: string = req.params.topic
@@ -36,7 +34,7 @@ router.get("/shared/:meetingId/topic/:topic", async (req, res) => {
 
     return res.json(notes)
 })
-router.get('/private/:meetingId/:userId', async (req, res) => {
+router.get('/private/meetings/:meetingId/users/:userId', async (req, res) => {
 
     let meetingId: number = parseInt(req.params.meetingId)
 
