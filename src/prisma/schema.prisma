@@ -6,10 +6,11 @@ datasource db {
   url      = "file:./connfy.db"
 }
 model User {
-  id      Int      @default(autoincrement()) @id
-  email   String   @unique
-  name    String 
-  notes   Note[]
+  id        Int      @default(autoincrement()) @id
+  email     String   @unique
+  name      String 
+  notes     Note[]
+  password  String  @default("password")
 }
 model Note{
   id          Int       @default(autoincrement()) @id

@@ -51,7 +51,7 @@ router.get('/private/meetings/:meetingId/users/:userId', async (req, res) => {
 })
 router.post("/", async (req, res) => {
     let note: Note = req.body;
-    console.log("POST Request here ", note)
+    
     let createdNote: Note | undefined =
         await NoteService.createNote(note)
 

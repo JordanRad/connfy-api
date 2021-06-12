@@ -1,10 +1,7 @@
+import e from 'express';
 import express from 'express';
 import { User } from '../model/User';
-import { Note } from '../model/Note';
-import { PrismaClient } from '@prisma/client';
-import { errorLog } from '../logging';
 import { UserService } from '../service/UserService';
-const prisma = new PrismaClient();
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -24,6 +21,17 @@ router.get('/:id', async (req, res) => {
     user != null ? res.json(user) : res.sendStatus(404)
 
 })
+
+router.get('/:email', async (req, res) => {
+
+    let email:string = req.body
+
+    let user: User | null = await UserService.getUserByEmail(email);
+
+    user != null ? res.json(user) : res.sendStatus(404)
+
+})
+
 router.post("/", async (req, res) => {
     let user: User = req.body
 

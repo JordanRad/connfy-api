@@ -1,6 +1,6 @@
 import { Note } from '../model/Note';
 import { PrismaClient } from '@prisma/client';
-import { errorLog } from '../logging';
+import { errorLog, infoLog } from '../logging';
 
 const prisma = new PrismaClient();
 
@@ -15,7 +15,11 @@ export class NoteService {
                 where: { meetingId: meetingId, type: "PRIVATE", userId: userId },
                 orderBy: { createdAt: "desc" }
             })
+
+            infoLog("NOTES "+JSON.stringify(notes))
+
             return notes != null ? notes : []
+
         } catch (err) {
             errorLog(err)
             return undefined
@@ -33,7 +37,11 @@ export class NoteService {
                 include: { user: true },
                 orderBy: { createdAt: "asc" }
             })
+
+            infoLog("NOTES: "+JSON.stringify(notes))
+
             return notes != null ? notes : []
+
         } catch (err) {
             errorLog(err)
             return undefined
@@ -56,7 +64,11 @@ export class NoteService {
                 include: { user: true },
                 orderBy: { createdAt: "asc" }
             })
+
+            infoLog("NOTES: "+JSON.stringify(notes))
+
             return notes != null ? notes : []
+
         } catch (err) {
             errorLog(err)
             return undefined
@@ -72,6 +84,8 @@ export class NoteService {
             let createdNote = await prisma.note.create({
                 data: note
             })
+
+            infoLog("CREATED NOTE "+JSON.stringify(createdNote))
 
             return createdNote;
 
@@ -91,6 +105,8 @@ export class NoteService {
                 data: note
             })
 
+            infoLog("UPDATED NOTE "+JSON.stringify(updatedNote))
+
             return updatedNote;
 
         } catch (err) {
@@ -108,6 +124,8 @@ export class NoteService {
             let deletedNote = await prisma.note.delete({
                 where: { id: id }
             })
+
+            infoLog("DELETED NOTE "+JSON.stringify(deletedNote))
 
             return deletedNote;
 

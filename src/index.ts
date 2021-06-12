@@ -2,7 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import userController from './controller/UserController';
 import noteController from './controller/NoteController';
+import authController from './controller/AuthController';
 import {infoLog} from './logging';
+
+import TokenFilter from './controller/TokenFilter'
 const app = express();
 
 
@@ -12,8 +15,10 @@ app.use(express.urlencoded({
 app.use(express.json())
 app.use(cors());
 
+app.use(TokenFilter)
 app.use("/api/users/",userController);
 app.use("/api/notes/",noteController);
+app.use("/api/auth",authController)
 app.get('/', async (req, res) => {
   res.send("Hello")
 })
