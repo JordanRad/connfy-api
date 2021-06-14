@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 export class AuthService {
 
     /**
-     * Get a single user by id
+     * Login with user credentials
      */
     public static async login(credentials: Credentials) {
 
@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     /**
-     * Register user
+     * Register an user
      */
     public static async register(user: User) {
 
@@ -61,40 +61,4 @@ export class AuthService {
         return createdUser
     }
 
-    /**
-     * Get a single user by id
-     */
-    public static async getAllUsers() {
-
-        try {
-            let users: User[] = await prisma.user.findMany({
-                include: {
-                    notes: true
-                }
-            })
-            infoLog("USERS: "+JSON.stringify(users))
-            return users
-        }
-        catch (err) {
-            errorLog(err)
-            return undefined
-        }
-
-    }
-    /**
-      * Get a single user by id
-      */
-    public static async createUser(user: User) {
-        
-        try {
-            let createdUser = await prisma.user.create({
-                data: user
-            })
-            infoLog("CREATED USER: "+JSON.stringify(createdUser))
-            return createdUser
-        } catch (err) {
-            errorLog(err)
-            return undefined
-        }
-    }
 }
