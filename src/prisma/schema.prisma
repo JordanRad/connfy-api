@@ -14,9 +14,8 @@ model Meeting {
   id Int @default(autoincrement()) @id
   title String @unique
   noteId Int
-  userId Int
-  publicNote Boolean @default(true)
-  date DateTime
+  userId Int 
+  date DateTime @default(now())
 }
 generator client {
   provider = "prisma-client-js"

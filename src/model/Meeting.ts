@@ -1,8 +1,8 @@
 export interface Meeting{
-    id : string,
+    meetingId : number,
     title:string,
-    noteId:string,
-    usersId:string,
+    usersId:number,
     date: Date
+    //noteId:number,
     //email:string
 }

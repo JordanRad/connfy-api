@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import userController from './controller/UserController';
+import meetingController from './controller/MeetingController';
 import {infoLog} from './logging';
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json())
 app.use(cors());
 
 app.use("/api/users/",userController);
+app.use("/api/meetings/",meetingController);
 
 app.get('/', async (req, res) => {
   res.send("Hello")
