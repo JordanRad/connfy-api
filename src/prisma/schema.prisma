@@ -23,6 +23,13 @@ model Note{
   type        String    @default("SHARED") 
   createdAt   DateTime  @default(now())
 }
+model Meeting {
+  id Int @default(autoincrement()) @id
+  title String @unique
+  noteId Int
+  userId Int 
+  date DateTime @default(now())
+}
 generator client {
   provider = "prisma-client-js"
 }

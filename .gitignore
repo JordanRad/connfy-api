@@ -1,2 +1,4 @@
 src/node_modules
+
 .vs_code/
+.vscode/settings.json
