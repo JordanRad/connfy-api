@@ -4,7 +4,6 @@ import { NoteService } from '../service/NoteService';
 const router = express.Router();
 
 router.get("/shared/meetings/:meetingId", async (req, res) => {
-
     let meetingId: number = parseInt(req.params.meetingId)
 
     let notes: Note[] | undefined =
@@ -15,8 +14,8 @@ router.get("/shared/meetings/:meetingId", async (req, res) => {
     }
 
     return res.json(notes)
-
 })
+
 router.get("/shared/meetings/:meetingId/topic/:topic", async (req, res) => {
     let meetingId: number = parseInt(req.params.meetingId)
 
@@ -34,8 +33,8 @@ router.get("/shared/meetings/:meetingId/topic/:topic", async (req, res) => {
 
     return res.json(notes)
 })
-router.get('/private/meetings/:meetingId/users/:userId', async (req, res) => {
 
+router.get('/private/meetings/:meetingId/users/:userId', async (req, res) => {
     let meetingId: number = parseInt(req.params.meetingId)
 
     let userId: number = parseInt(req.params.userId)
@@ -49,6 +48,7 @@ router.get('/private/meetings/:meetingId/users/:userId', async (req, res) => {
 
     return res.json(notes)
 })
+
 router.post("/", async (req, res) => {
     let note: Note = req.body;
     
@@ -60,7 +60,6 @@ router.post("/", async (req, res) => {
     }
 
     return res.json(createdNote);
-
 })
 
 router.put("/:id", async (req, res) => {

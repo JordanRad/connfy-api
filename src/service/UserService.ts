@@ -1,5 +1,4 @@
-import { User } from '../model/User';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { errorLog, infoLog } from '../logging';
 
 const prisma = new PrismaClient();
@@ -71,7 +70,7 @@ export class UserService {
 
     }
     /**
-      * Get a single user by id
+      * Create user
       */
     public static async createUser(user: User) {
         try {
@@ -80,6 +79,24 @@ export class UserService {
             })
             infoLog(JSON.stringify(createdUser))
             return createdUser
+        } catch (err) {
+            errorLog(err)
+            return undefined
+        }
+    }
+
+    /**
+     * Update user
+     */
+    public static async updateUser(id: number, user: User) {
+        try {
+            let updatedUser = await prisma.user.update({
+                where: { id: id },
+                data: user
+            })
+            infoLog(JSON.stringify(updatedUser))
+            return updatedUser
+
         } catch (err) {
             errorLog(err)
             return undefined

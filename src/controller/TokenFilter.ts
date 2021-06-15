@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken"
 import HeaderDetails from "../model/HeaderDetails";
 
 export default function (req: Request, res: Response, next: NextFunction) {
-
     let token: string | undefined = req.headers["authorization"]
 
     //Remove the "Bearer " prefix
@@ -23,8 +22,8 @@ export default function (req: Request, res: Response, next: NextFunction) {
     next()
 
 }
-function isProtectedRoute(req: Request): boolean {
 
+function isProtectedRoute(req: Request): boolean {
     let isMatching: boolean[] = urlMatchers.map(item => {
         if (req.url.toString().includes(item.url) && req.method == item.method) {
             return true
@@ -36,12 +35,10 @@ function isProtectedRoute(req: Request): boolean {
 
         return true
     }
-
     return false
 }
 
 function isJWTValid(token: string): boolean {
-
     let secret = process.env.JWT_SECRET || "111111"
 
     try {
@@ -49,10 +46,9 @@ function isJWTValid(token: string): boolean {
         return true
     }
     catch (ex) {
-        infoLog(ex.message);
+        errorLog(ex.message);
         return false
     }
-
 }
 
 const urlMatchers: HeaderDetails[] = [{
@@ -70,4 +66,24 @@ const urlMatchers: HeaderDetails[] = [{
 {
     method: "DELETE",
     url: `/api/notes`
-}]
+},
+{
+    method: "GET",
+    url: `/api/meetings`
+},
+{
+    method: "POST",
+    url: `/api/meetings`
+},
+{
+    method: "PUT",
+    url: `/api/meetings`
+},
+{
+    method: "DELETE",
+    url: `/api/meetings`
+},{
+    method: "PUT",
+    url: `/api/users`
+},
+]

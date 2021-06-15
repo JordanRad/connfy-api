@@ -1,6 +1,5 @@
-import e from 'express';
 import express from 'express';
-import { User } from '../model/User';
+import { User } from '.prisma/client';
 import { UserService } from '../service/UserService';
 const router = express.Router();
 
@@ -42,5 +41,18 @@ router.post("/", async (req, res) => {
     }
 
     return res.json(createdUser)
+})
+
+router.put("/:id",async (req,res)=>{
+    let userId:number = parseInt(req.params.id)
+    let user: User = req.body
+
+    let updatedUser: User | undefined = await UserService.updateUser(userId,user)
+
+    if (updatedUser == undefined) {
+        return res.sendStatus(409)
+    }
+
+    return res.json(updatedUser)
 })
 export default router;

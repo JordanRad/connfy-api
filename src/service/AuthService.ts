@@ -16,7 +16,6 @@ export class AuthService {
      * Login with user credentials
      */
     public static async login(credentials: Credentials) {
-
         //Check if such email exists
         let user: User | null = await UserService.getUserByEmail(credentials.email)
 
@@ -38,7 +37,6 @@ export class AuthService {
      * Generate JWT
      */
     public static generateJWT(email: string) {
-
         let secret = process.env.JWT_SECRET || "111111"
         let token = jwt.sign({ email: 'email' }, secret)
 
@@ -49,7 +47,6 @@ export class AuthService {
      * Register an user
      */
     public static async register(user: User) {
-
         let newUser = user
 
         let hash: string = bcrypt.hashSync(user.password, saltRounds)

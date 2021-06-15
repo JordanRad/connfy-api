@@ -1,12 +1,11 @@
-import { User } from '../model/User';
 import express from 'express';
 import { Credentials } from '../model/Credentials';
 import { AuthService } from '../service/AuthService';
 import { UserResponse } from '../model/UserResponse';
+import { User } from '.prisma/client';
 const router = express.Router();
 
 router.post("/login", async (req, res, next) => {
-
     let credentials: Credentials = req.body;
 
     let loggedUser: User | null = await AuthService.login(credentials)
@@ -28,7 +27,6 @@ router.post("/login", async (req, res, next) => {
 })
 
 router.post("/register", async (req, res) => {
-    
     let user: User = req.body
    
     let createdUser: User | undefined  = await AuthService.register(user)
@@ -40,8 +38,6 @@ router.post("/register", async (req, res) => {
     let userResponse: UserResponse = { email: createdUser.email, name: createdUser.name, id: createdUser.id }
 
     return res.json(userResponse)
-
-
 })
 
 export default router

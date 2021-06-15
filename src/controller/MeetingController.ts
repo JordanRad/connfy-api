@@ -1,9 +1,9 @@
 import express from 'express';
-import { Meeting } from '../model/Meeting';
+import { Meeting } from '.prisma/client';
 import { MeetingService } from '../service/MeetingService';
 const router = express.Router();
 
-router.get("/meetings/:meetingId", async (req, res) => {
+router.get("/:meetingId", async (req, res) => {
 
     let meetingId: number = parseInt(req.params.meetingId)
 
@@ -28,7 +28,6 @@ router.post("/", async (req, res) => {
     }
 
     return res.json(createdMeeting);
-
 })
 
 router.put("/:meetingId", async (req, res) => {

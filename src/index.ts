@@ -9,7 +9,6 @@ import {infoLog} from './logging';
 import TokenFilter from './controller/TokenFilter'
 const app = express();
 
-
 app.use(express.urlencoded({
   extended: true
 }));

@@ -1,4 +1,3 @@
-//import { Note } from '../model/Note';
 import { PrismaClient, Note } from '@prisma/client';
 import { errorLog, infoLog } from '../logging';
 
