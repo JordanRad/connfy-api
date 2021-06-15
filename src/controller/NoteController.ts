@@ -1,5 +1,5 @@
 import express from 'express';
-import { Note } from '../model/Note';
+import { Note } from 'prisma/prisma-client';
 import { NoteService } from '../service/NoteService';
 const router = express.Router();
 

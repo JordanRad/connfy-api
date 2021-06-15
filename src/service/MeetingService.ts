@@ -1,5 +1,5 @@
-import { Meeting } from '../model/Meeting';
-import { PrismaClient } from '@prisma/client';
+//import { Meeting } from '../model/Meeting';
+import { PrismaClient,Meeting } from '@prisma/client';
 import { errorLog, infoLog } from '../logging';
 
 const prisma = new PrismaClient();

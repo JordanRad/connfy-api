@@ -1,5 +1,5 @@
-import { Note } from '../model/Note';
-import { PrismaClient } from '@prisma/client';
+//import { Note } from '../model/Note';
+import { PrismaClient, Note } from '@prisma/client';
 import { errorLog, infoLog } from '../logging';
 
 const prisma = new PrismaClient();
