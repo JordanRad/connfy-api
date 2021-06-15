@@ -1,8 +1,12 @@
+import {Note} from '../model/Note';
+import {User} from '../model/User';
+
 export interface Meeting{
     meetingId : number,
     title:string,
     usersId:number,
-    date: Date
-    //noteId:number,
-    //email:string
+    users:User[],
+    notes:Note[],
+    date: Date,
+    description:string
 }
