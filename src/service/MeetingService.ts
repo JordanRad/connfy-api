@@ -1,4 +1,3 @@
-//import { Meeting } from '../model/Meeting';
 import { PrismaClient,Meeting } from '@prisma/client';
 import { errorLog, infoLog } from '../logging';
 
@@ -29,7 +28,7 @@ export class MeetingService {
 
         try {
             let createdMeeting = await prisma.meeting.create({
-                data: meeting
+                data:meeting
             })
 
             infoLog("Created New Meeting "+JSON.stringify(createdMeeting))

@@ -12,7 +12,6 @@ model User {
   name     String
   notes    Note[]
   password String    @default("password")
-  meetings Meeting[]
   invites  Invite[]
 }
 
@@ -34,7 +33,7 @@ model Meeting {
   description String
   date        DateTime @default(now())
   notes       Note[]
-  users       User[]
+  users       String
   invites     Invite[]
 }
 

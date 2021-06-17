@@ -1,6 +1,10 @@
 import express from 'express';
-import { Meeting } from '.prisma/client';
+import { Meeting, User } from '.prisma/client';
 import { MeetingService } from '../service/MeetingService';
+import { UserService } from '../service/UserService';
+import { EmailService } from '../service/EmailService';
+import { infoLog } from '../logging';
+import { InviteService } from '../service/InviteService';
 const router = express.Router();
 
 router.get("/:meetingId", async (req, res) => {
@@ -19,15 +23,28 @@ router.get("/:meetingId", async (req, res) => {
 
 router.post("/", async (req, res) => {
     let meeting: Meeting = req.body;
-    
+
     let createdMeeting: Meeting | undefined =
         await MeetingService.createMeeting(meeting)
+
 
     if (createdMeeting == undefined) {
         return res.sendStatus(409)
     }
 
-    return res.json(createdMeeting);
+    else {
+        let emailInvites = createdMeeting.users.split(",")
+        infoLog(JSON.stringify(emailInvites))
+
+        emailInvites.forEach(async (email) => {
+            let user: User | null = await UserService.getUserByEmail(email)
+            if (user != null && createdMeeting != undefined) {
+                await EmailService.sendMail(email, createdMeeting.id, user.id)
+                await InviteService.createInvite(user.id, createdMeeting.id)
+            }
+        });
+        return res.json(createdMeeting);
+    }
 })
 
 router.put("/:meetingId", async (req, res) => {
@@ -58,3 +75,4 @@ router.delete("/:meetingId", async (req, res) => {
 })
 
 export default router;
+ 
