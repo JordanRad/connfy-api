@@ -7,11 +7,11 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
   name     String
   notes    Note[]
-  password String    @default("password")
+  password String   @default("password")
   invites  Invite[]
 }
 
@@ -22,7 +22,8 @@ model Note {
   meetingId   Int
   user        User     @relation(fields: [userId], references: [id])
   userId      Int      @default(0)
-  topic       String   @default("GENERAL")
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  topicId     Int      @default(0)
   type        String   @default("SHARED")
   createdAt   DateTime @default(now())
 }
@@ -31,10 +32,30 @@ model Meeting {
   id          Int      @id @default(autoincrement())
   title       String   @unique
   description String
-  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+  date        String   @default("12.26.2021")
+  startTime   String   @default("00:00")
+  endTime     String   @default("01:00")
   notes       Note[]
   users       String
   invites     Invite[]
+  channel     Channel  @relation(fields: [channelId], references: [id])
+  channelId   Int      @default(0)
+}
+
+model Channel {
+  id      Int       @id @default(autoincrement())
+  meeting Meeting[]
+  topics  String    @default("General")
+  Topic   Topic[]
+}
+
+model Topic {
+  id        Int     @id @default(autoincrement())
+  name      String  @default("General")
+  channel   Channel @relation(fields: [channelId], references: [id])
+  channelId Int
+  Note      Note[]
 }
 
 model Invite {
