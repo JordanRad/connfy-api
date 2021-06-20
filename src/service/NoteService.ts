@@ -58,8 +58,8 @@ export class NoteService {
                 where: {
                     meetingId: { equals: meetingId },
                     type: { equals: "SHARED" },
-                    topic: { equals: topic }
-                },
+                    topicString: { equals: topic }
+                }, 
                 include: { user: true },
                 orderBy: { createdAt: "asc" }
             })

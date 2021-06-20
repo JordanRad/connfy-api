@@ -22,32 +22,34 @@ model Note {
   meetingId   Int
   user        User     @relation(fields: [userId], references: [id])
   userId      Int      @default(0)
-  topic       Topic    @relation(fields: [topicId], references: [id])
-  topicId     Int      @default(0)
+  topic       Topic?   @relation(fields: [topicId], references: [id])
+  topicId     Int?     @default(0)
+  topicString String   @default("General")
   type        String   @default("SHARED")
   createdAt   DateTime @default(now())
 }
 
 model Meeting {
   id          Int      @id @default(autoincrement())
-  title       String   @unique
+  subject     String   @default("Meeting title")
   description String
   createdAt   DateTime @default(now())
   date        String   @default("12.26.2021")
   startTime   String   @default("00:00")
   endTime     String   @default("01:00")
+  location    String   @default("Rachelsmolen 1, Eindhoven")
   notes       Note[]
   users       String
   invites     Invite[]
-  channel     Channel  @relation(fields: [channelId], references: [id])
-  channelId   Int      @default(0)
+  channel     Channel?  @relation(fields: [channelId], references: [id])
+  channelId   Int?      @default(0)
 }
 
 model Channel {
-  id      Int       @id @default(autoincrement())
-  meeting Meeting[]
-  topics  String    @default("General")
-  Topic   Topic[]
+  id       Int       @id @default(autoincrement())
+  name     String    @default("Channel")
+  meetings Meeting[]
+  topics   Topic[]
 }
 
 model Topic {

@@ -7,6 +7,24 @@ import { infoLog } from '../logging';
 import { InviteService } from '../service/InviteService';
 const router = express.Router();
 
+router.get("/upcoming/", async (req, res) => {
+
+    let userEmail = req.body.email
+
+    // //So that "email@example.com" & email@example.com can be both recognised 
+    userEmail = userEmail.split("\"").join("")
+
+    infoLog(userEmail)
+
+    let upcomingMeetings: Meeting[] | undefined =
+        await MeetingService.getUpcomingMeetings(userEmail.toString())
+
+    if (upcomingMeetings == undefined) {
+        return res.sendStatus(404)
+    }
+
+    return res.json(upcomingMeetings)
+})
 router.get("/:meetingId", async (req, res) => {
 
     let meetingId: number = parseInt(req.params.meetingId)
@@ -75,4 +93,3 @@ router.delete("/:meetingId", async (req, res) => {
 })
 
 export default router;
- 

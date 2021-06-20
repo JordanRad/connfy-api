@@ -5,6 +5,30 @@ const prisma = new PrismaClient();
 
 export class MeetingService {
 
+    /**
+     * Get upcoming meetings
+     * */
+    public static async getUpcomingMeetings(userEmail:string) {
+        try {
+            let meetings = await prisma.meeting.findMany({
+                where: { users: {
+                    contains:userEmail
+                }},orderBy:{
+                    date:"asc"
+                }
+            })
+
+            infoLog("Meetings "+JSON.stringify(meetings))
+
+            return meetings != null ? meetings : []
+
+        } catch (err) {
+            errorLog(err)
+            return undefined
+        }
+    }
+
+
     // Get All Meetings from the database
     public static async getAllMeetings(meetingId: number) {
         try {
