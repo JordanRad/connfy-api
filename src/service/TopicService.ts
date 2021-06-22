@@ -24,6 +24,24 @@ export class TopicService {
         }
     }
 
+    /**
+     * Get Topic by name
+     */
+    public static async GetTopicByName(name:string) {
+        try {
+            let topic = await prisma.topic.findFirst({
+                where:{name:name}
+            })
+
+            infoLog("Topic " + JSON.stringify(topic))
+
+            return topic;
+
+        } catch (err) {
+            errorLog(err)
+            return undefined
+        }
+    }
 
     
 }

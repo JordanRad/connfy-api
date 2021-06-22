@@ -3,6 +3,32 @@ import { Note } from 'prisma/prisma-client';
 import { NoteService } from '../service/NoteService';
 const router = express.Router();
 
+router.get("/all/:userId",async (req,res)=>{
+    let userId: number = parseInt(req.params.userId)
+
+    let notes: Note[] | undefined =
+        await NoteService.getAllNotesByUserId(userId)
+
+    if (notes == undefined) {
+        return res.sendStatus(404)
+    }
+
+    return res.json(notes)
+})
+
+router.get("/topic/:topicId/:userId",async (req,res)=>{
+    let userId: number = parseInt(req.params.userId)
+    let topicId:number = parseInt(req.params.topicId)
+    let notes: Note[] | undefined =
+        await NoteService.getAllNotesByUserIdAndTopic(userId,topicId)
+
+    if (notes == undefined) {
+        return res.sendStatus(404)
+    }
+
+    return res.json(notes)
+})
+
 router.get("/shared/meetings/:meetingId", async (req, res) => {
     let meetingId: number = parseInt(req.params.meetingId)
 

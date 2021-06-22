@@ -6,6 +6,48 @@ const prisma = new PrismaClient();
 export class NoteService {
 
     /**
+     * Get All notes based on user id
+     */
+    public static async getAllNotesByUserId(userId:number) {
+        try {
+            let notes = await prisma.note.findMany({
+                where: { userId: userId },
+                include:{topic:true},
+                orderBy: { createdAt: "desc" }
+            })
+
+            infoLog("NOTES "+JSON.stringify(notes))
+
+            return notes != null ? notes : []
+
+        } catch (err) {
+            errorLog(err)
+            return undefined
+        }
+    }
+
+    /**
+     * Get All notes based on user id & topic
+     */
+     public static async getAllNotesByUserIdAndTopic(userId:number,topicId:number) {
+        try {
+            let notes = await prisma.note.findMany({
+                where: { userId: userId, topicId:topicId },
+                include:{topic:true},
+                orderBy: { createdAt: "desc" }
+            })
+
+            infoLog("NOTES "+JSON.stringify(notes))
+
+            return notes != null ? notes : []
+
+        } catch (err) {
+            errorLog(err)
+            return undefined
+        }
+    }
+    
+    /**
      * Get private notes per meeting by meeting id & user id
      */
     public static async getPrivateNotesPerMeeting(meetingId: number, userId: number) {
